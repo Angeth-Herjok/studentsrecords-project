@@ -1,0 +1,27 @@
+<h1>Students per Country</h1>
+{% for country in students_by_country %}
+    <h2>{{ country.country }} ({{ country.total }})</h2>
+    <ol>
+        {% for student in country.students %}
+            <li>{{ student.name }}</li>
+        {% empty %}
+            <li>No students found.</li>
+        {% endfor %}
+    </ol>
+{% empty %}
+    <p>No countries found.</p>
+{% endfor %}
+
+<h2>Add Student</h2>
+<form method="post" action="{% url 'add_student' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Student</button>
+</form>
+
+<h2>Add Country</h2>
+<form method="post" action="{% url 'add_country' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Country</button>
+</form>
